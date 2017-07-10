@@ -1,8 +1,7 @@
-# -*- coding:utf-8 -*-
+﻿# -*- coding:utf-8 -*-
 from telebot import TeleBot
 from libs.constants import TOKEN
 from libs.AccuWeather import AccuWeather
-import bot_cmd
 
 bot = TeleBot(TOKEN)
 apiAW = AccuWeather()
@@ -57,13 +56,6 @@ def handle_command(message):
     modes = apiAW.get_forecasting_mode()
     log(message, modes)
     bot.send_message(message.chat.id, modes)
-
-
-@bot.message_handler(commands=['help'])
-def handle_command(message):
-    sb = ['%s - %s\n' %(key, value) for key, value in bot_cmd.CMD.items()]
-    log(message, ''.join(sb))
-    bot.send_message(message.chat.id, ''.join(sb))
 
 
 @bot.message_handler(content_types=['text'])
